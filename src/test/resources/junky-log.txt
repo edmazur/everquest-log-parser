@@ -1,0 +1,7 @@
+[Fri Oct 25 00:00:00 2019] Stanvern says out of character, 'line 1'
+[Fri Oct 25 00:00:10 2019] Stanvern says out of character, 'oh no, the next line is blank!'
+
+[Fri Oct 25 00:00:20 2019] Stanvern says out of character, 'whew, got through the blank line'
+[Fri Oct 25 00:00:30 2019] Stanvern says out of character, 'wtf happened to the next line?!'
+[Fri Oct 25 00:0[Fri Oct 25 00:00:40 2019] Stanvern says out of character, 'zoinks'
+[Fri Oct 25 00:00:50 2019] Stanvern says out of character, 'whew, got through the malformed line'

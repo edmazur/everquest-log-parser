@@ -9,6 +9,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -76,8 +77,12 @@ public class LogSeeker {
     if (!matcher.matches() || matcher.groupCount() != 2) {
       return Optional.empty();
     }
-    LocalDateTime timestamp =
-        LocalDateTime.parse(matcher.group(1), timestampFormatter);
+    LocalDateTime timestamp = null;
+    try {
+      timestamp = LocalDateTime.parse(matcher.group(1), timestampFormatter);
+    } catch (DateTimeParseException e) {
+      return Optional.empty();
+    }
     return Optional.of(timestamp.atZone(timezone).toInstant());
   }
 
