@@ -55,7 +55,7 @@ class LogSeekerTest {
             }),
 
         Arguments.of(
-            "Jump search with jumpSize=10",
+            "Jump search with jumpSize=1",
             new LogSeekerProvider() {
               @Override
               public LogSeeker get(String fileName) {
@@ -69,7 +69,7 @@ class LogSeekerTest {
             }),
 
         Arguments.of(
-            "Jump search with jumpSize=10",
+            "Jump search with jumpSize=2",
             new LogSeekerProvider() {
               @Override
               public LogSeeker get(String fileName) {
@@ -93,20 +93,6 @@ class LogSeekerTest {
                     EqLogEvent.TIMESTAMP_FORMAT,
                     TIMEZONE,
                     10);
-              }
-            }),
-
-        Arguments.of(
-            "Jump search with default jumpSize",
-            new LogSeekerProvider() {
-              @Override
-              public LogSeeker get(String fileName) {
-                return new JumpSearchLogSeeker(
-                    getFile(fileName),
-                    EqLogEvent.LINE_PATTERN,
-                    EqLogEvent.TIMESTAMP_FORMAT,
-                    TIMEZONE,
-                    1000 * 1000);
               }
             })
 
