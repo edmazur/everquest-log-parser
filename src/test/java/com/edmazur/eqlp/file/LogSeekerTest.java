@@ -94,6 +94,19 @@ class LogSeekerTest {
                     TIMEZONE,
                     10);
               }
+            }),
+
+        Arguments.of(
+            "Jump search with default jumpSize",
+            new LogSeekerProvider() {
+              @Override
+              public LogSeeker get(String fileName) {
+                return new JumpSearchLogSeeker(
+                    getFile(fileName),
+                    EqLogEvent.LINE_PATTERN,
+                    EqLogEvent.TIMESTAMP_FORMAT,
+                    TIMEZONE);
+              }
             })
 
         );
