@@ -6,10 +6,13 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.ZoneId;
 
+import com.edmazur.eqlp.file.JumpSearchLogSeeker;
+import com.edmazur.eqlp.file.LinearSearchLogSeeker;
 import com.edmazur.eqlp.file.LogSeeker;
 
 /**
- * Reports how long it takes to seek to various positions in a large log file.
+ * Reports how long it takes to seek to various positions in a large log file
+ * using different LogSeeker implementations.
  */
 public class LogSeekerBenchmark {
 
@@ -18,26 +21,46 @@ public class LogSeekerBenchmark {
       "/opt/everquest/EverQuest Project 1999/Logs/eqlog_Stanvern_P1999Green.txt");
 
   public static void main(String[] args) throws IOException {
-    runBenchmark(
+    runBenchmarks(
         Instant.MIN,
         "Start of file");
-    runBenchmark(
+    runBenchmarks(
         Instant.now().minus(Duration.ofMinutes(5)),
         "5 minutes before end of file");
   }
 
-  private static void runBenchmark(Instant seekStart, String name) throws IOException {
-    LogSeeker logSeeker = new LogSeeker(
-        file,
-        EqLogEvent.LINE_PATTERN,
-        EqLogEvent.TIMESTAMP_FORMAT,
-        ZoneId.systemDefault());
+  private static void runBenchmarks(Instant seekStart, String benchmarkName)
+      throws IOException {
+    runBenchmark(
+        new JumpSearchLogSeeker(
+            file,
+            EqLogEvent.LINE_PATTERN,
+            EqLogEvent.TIMESTAMP_FORMAT,
+            ZoneId.systemDefault()),
+        seekStart,
+        benchmarkName);
+    runBenchmark(
+        new LinearSearchLogSeeker(
+            file,
+            EqLogEvent.LINE_PATTERN,
+            EqLogEvent.TIMESTAMP_FORMAT,
+            ZoneId.systemDefault()),
+        seekStart,
+        benchmarkName);
+  }
+
+  private static void runBenchmark(
+      LogSeeker logSeeker,
+      Instant seekStart,
+      String benchmarkName)
+          throws IOException {
     Instant start = Instant.now();
     logSeeker.seek(seekStart);
     Instant end = Instant.now();
-    System.out.println(
-        getHumanReadableFormat(Duration.between(start, end)) + " - \"" + name +
-        "\" benchmark");
+    System.out.println(String.format("%s - [%s] benchmark for [%s] strategy",
+        getHumanReadableFormat(Duration.between(start, end)),
+        benchmarkName,
+        logSeeker.getStrategyDescription()));
   }
 
   // https://stackoverflow.com/a/40487511/192236

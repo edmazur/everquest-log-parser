@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.edmazur.eqlp.file.LogSeeker;
+import com.edmazur.eqlp.file.JumpSearchLogSeeker;
 
 /**
  * Entry point for EQ log processing library.
@@ -81,7 +81,7 @@ public class EqLog implements Runnable {
     BufferedReader bufferedReader = null;
     try {
       bufferedReader =
-          new LogSeeker(
+          new JumpSearchLogSeeker(
               eqLogFile,
               EqLogEvent.LINE_PATTERN,
               EqLogEvent.TIMESTAMP_FORMAT,

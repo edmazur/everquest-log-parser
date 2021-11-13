@@ -2,6 +2,7 @@ package com.edmazur.eqlp;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Duration;
 import java.time.Instant;
 import java.time.ZoneId;
 
@@ -18,7 +19,7 @@ public class BasicEqLogReader {
         timezone,
         server,
         character,
-        Instant.MIN,
+        Instant.now().minus(Duration.ofMinutes(1)),
         Instant.MAX);
     eqLog.addListener(new EqLogListener() {
       @Override
