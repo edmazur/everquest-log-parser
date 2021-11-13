@@ -24,6 +24,10 @@ public class EqLog implements Runnable {
   private static final String GREEN_SUFFIX = "P1999Green";
   private static final String RED_SUFFIX = "P1999PVP";
 
+  // After reaching the end of the log file, how long to wait until checking
+  // again.
+  private static final Duration FILE_CHECK_INTERVAL = Duration.ofMillis(100);
+
   private final Path eqInstallDirectory;
   private final ZoneId timezone;
   private final String server;
@@ -100,6 +104,15 @@ public class EqLog implements Runnable {
         // TODO: Handle this more gracefully.
         e.printStackTrace();
         System.exit(-1);
+      }
+      if (line == null) {
+        try {
+          Thread.sleep(FILE_CHECK_INTERVAL.toMillis());
+        } catch (InterruptedException e) {
+          // TODO: Handle this more gracefully.
+          e.printStackTrace();
+        }
+        continue;
       }
       Optional<EqLogEvent> maybeEqLogEvent = EqLogEvent.parseFromLine(line);
       if (maybeEqLogEvent.isEmpty()) {
