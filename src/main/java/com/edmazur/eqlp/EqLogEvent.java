@@ -2,6 +2,7 @@ package com.edmazur.eqlp;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -42,8 +43,13 @@ public class EqLogEvent {
     // TODO: Make this more robust against bad input.
     Matcher matcher = LINE_PATTERN.matcher(line);
     if (matcher.matches() && matcher.groupCount() == 2) {
-      LocalDateTime timestamp =
-          LocalDateTime.parse(matcher.group(1), TIMESTAMP_FORMAT);
+      LocalDateTime timestamp = null;
+      try {
+        timestamp = LocalDateTime.parse(matcher.group(1), TIMESTAMP_FORMAT);
+      } catch (DateTimeParseException e) {
+        // TODO: Handle this more gracefully.
+        return Optional.empty();
+      }
       String payload = matcher.group(2);
       return Optional.of(new EqLogEvent(line, timestamp, payload));
     } else {
@@ -69,6 +75,13 @@ public class EqLogEvent {
    */
   public LocalDateTime getTimestamp() {
     return timestamp;
+  }
+
+  /**
+   * @return The payload.
+   */
+  public String getPayload() {
+    return payload;
   }
 
 }
