@@ -1,0 +1,10 @@
+# Eclipse
+/.checkstyle
+/.classpath
+/.project
+/.settings/
+/bin/
+
+# Gradle
+/.gradle/
+/build/

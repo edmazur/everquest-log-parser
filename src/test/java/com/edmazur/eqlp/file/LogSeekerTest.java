@@ -1,19 +1,18 @@
 package com.edmazur.eqlp.file;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
+import com.edmazur.eqlp.EqLogEvent;
 import java.io.File;
 import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.stream.Stream;
-
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-
-import com.edmazur.eqlp.EqLogEvent;
 
 // Tests all implementations (and variations of each as needed) of LogSeeker
 // using a common set of test cases.
@@ -243,7 +242,8 @@ class LogSeekerTest {
       LogSeekerProvider logSeekerProvider) throws IOException {
     LogSeeker logSeeker = logSeekerProvider.get(JUNKY_LOG);
     assertEquals(
-        "[Fri Oct 25 00:00:10 2019] Stanvern says out of character, 'oh no, the next line is blank!'",
+        "[Fri Oct 25 00:00:10 2019] "
+            + "Stanvern says out of character, 'oh no, the next line is blank!'",
         logSeeker.seek(getInstant("Fri Oct 25 00:00:09 2019")).readLine());
   }
 
@@ -254,7 +254,8 @@ class LogSeekerTest {
       LogSeekerProvider logSeekerProvider) throws IOException {
     LogSeeker logSeeker = logSeekerProvider.get(JUNKY_LOG);
     assertEquals(
-        "[Fri Oct 25 00:00:10 2019] Stanvern says out of character, 'oh no, the next line is blank!'",
+        "[Fri Oct 25 00:00:10 2019] "
+            + "Stanvern says out of character, 'oh no, the next line is blank!'",
         logSeeker.seek(getInstant("Fri Oct 25 00:00:10 2019")).readLine());
   }
 
@@ -265,7 +266,8 @@ class LogSeekerTest {
       LogSeekerProvider logSeekerProvider) throws IOException {
     LogSeeker logSeeker = logSeekerProvider.get(JUNKY_LOG);
     assertEquals(
-        "[Fri Oct 25 00:00:20 2019] Stanvern says out of character, 'whew, got through the blank line'",
+        "[Fri Oct 25 00:00:20 2019] "
+            + "Stanvern says out of character, 'whew, got through the blank line'",
         logSeeker.seek(getInstant("Fri Oct 25 00:00:11 2019")).readLine());
   }
 
@@ -276,7 +278,8 @@ class LogSeekerTest {
       LogSeekerProvider logSeekerProvider) throws IOException {
     LogSeeker logSeeker = logSeekerProvider.get(JUNKY_LOG);
     assertEquals(
-        "[Fri Oct 25 00:00:20 2019] Stanvern says out of character, 'whew, got through the blank line'",
+        "[Fri Oct 25 00:00:20 2019] "
+            + "Stanvern says out of character, 'whew, got through the blank line'",
         logSeeker.seek(getInstant("Fri Oct 25 00:00:19 2019")).readLine());
   }
 
@@ -287,7 +290,8 @@ class LogSeekerTest {
       LogSeekerProvider logSeekerProvider) throws IOException {
     LogSeeker logSeeker = logSeekerProvider.get(JUNKY_LOG);
     assertEquals(
-        "[Fri Oct 25 00:00:20 2019] Stanvern says out of character, 'whew, got through the blank line'",
+        "[Fri Oct 25 00:00:20 2019] "
+            + "Stanvern says out of character, 'whew, got through the blank line'",
         logSeeker.seek(getInstant("Fri Oct 25 00:00:20 2019")).readLine());
   }
 
@@ -298,7 +302,8 @@ class LogSeekerTest {
       LogSeekerProvider logSeekerProvider) throws IOException {
     LogSeeker logSeeker = logSeekerProvider.get(JUNKY_LOG);
     assertEquals(
-        "[Fri Oct 25 00:00:30 2019] Stanvern says out of character, 'wtf happened to the next line?!'",
+        "[Fri Oct 25 00:00:30 2019] "
+            + "Stanvern says out of character, 'wtf happened to the next line?!'",
         logSeeker.seek(getInstant("Fri Oct 25 00:00:21 2019")).readLine());
   }
 
@@ -309,7 +314,8 @@ class LogSeekerTest {
       LogSeekerProvider logSeekerProvider) throws IOException {
     LogSeeker logSeeker = logSeekerProvider.get(JUNKY_LOG);
     assertEquals(
-        "[Fri Oct 25 00:00:30 2019] Stanvern says out of character, 'wtf happened to the next line?!'",
+        "[Fri Oct 25 00:00:30 2019] "
+            + "Stanvern says out of character, 'wtf happened to the next line?!'",
         logSeeker.seek(getInstant("Fri Oct 25 00:00:29 2019")).readLine());
   }
 
@@ -320,7 +326,8 @@ class LogSeekerTest {
       LogSeekerProvider logSeekerProvider) throws IOException {
     LogSeeker logSeeker = logSeekerProvider.get(JUNKY_LOG);
     assertEquals(
-        "[Fri Oct 25 00:00:30 2019] Stanvern says out of character, 'wtf happened to the next line?!'",
+        "[Fri Oct 25 00:00:30 2019] "
+            + "Stanvern says out of character, 'wtf happened to the next line?!'",
         logSeeker.seek(getInstant("Fri Oct 25 00:00:30 2019")).readLine());
   }
 
@@ -331,7 +338,8 @@ class LogSeekerTest {
       LogSeekerProvider logSeekerProvider) throws IOException {
     LogSeeker logSeeker = logSeekerProvider.get(JUNKY_LOG);
     assertEquals(
-        "[Fri Oct 25 00:00:50 2019] Stanvern says out of character, 'whew, got through the malformed line'",
+        "[Fri Oct 25 00:00:50 2019] "
+            + "Stanvern says out of character, 'whew, got through the malformed line'",
         logSeeker.seek(getInstant("Fri Oct 25 00:00:31 2019")).readLine());
   }
 
@@ -342,7 +350,8 @@ class LogSeekerTest {
       LogSeekerProvider logSeekerProvider) throws IOException {
     LogSeeker logSeeker = logSeekerProvider.get(JUNKY_LOG);
     assertEquals(
-        "[Fri Oct 25 00:00:50 2019] Stanvern says out of character, 'whew, got through the malformed line'",
+        "[Fri Oct 25 00:00:50 2019] "
+            + "Stanvern says out of character, 'whew, got through the malformed line'",
         logSeeker.seek(getInstant("Fri Oct 25 00:00:49 2019")).readLine());
   }
 
@@ -353,7 +362,8 @@ class LogSeekerTest {
       LogSeekerProvider logSeekerProvider) throws IOException {
     LogSeeker logSeeker = logSeekerProvider.get(JUNKY_LOG);
     assertEquals(
-        "[Fri Oct 25 00:00:50 2019] Stanvern says out of character, 'whew, got through the malformed line'",
+        "[Fri Oct 25 00:00:50 2019] "
+            + "Stanvern says out of character, 'whew, got through the malformed line'",
         logSeeker.seek(getInstant("Fri Oct 25 00:00:50 2019")).readLine());
   }
 

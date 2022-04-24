@@ -1,0 +1,32 @@
+apply plugin: 'java'
+apply plugin: 'java-library'
+apply plugin: 'checkstyle'
+
+repositories {
+  mavenCentral()
+}
+
+test {
+  useJUnitPlatform()
+}
+
+dependencies {
+  testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
+}
+
+// TODO: Instead of copy/pasting/modifying google_checks.xml into this project,
+// see if there's a way to dynamically pull it in (with local config on top of
+// it if possible).
+checkstyle {
+  // This is set to the same version as the Eclipse plugin version so that
+  // command-line behavior matches Eclipse behavior.
+  toolVersion '9.1'
+  maxWarnings 0
+}
+
+tasks.register("installGitHooks", Copy) {
+  from file("$rootDir/pre-commit")
+  into file("$rootDir/.git/hooks")
+  fileMode 0775
+}
+build.dependsOn installGitHooks

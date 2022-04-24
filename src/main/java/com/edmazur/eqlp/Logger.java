@@ -4,7 +4,6 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-// TODO: Replace this with a real logging library.
 public class Logger {
 
   private static final boolean DEBUG = false;

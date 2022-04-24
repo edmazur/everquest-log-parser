@@ -1,5 +1,6 @@
 package com.edmazur.eqlp.file;
 
+import com.edmazur.eqlp.Logger;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,8 +11,6 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.regex.Pattern;
-
-import com.edmazur.eqlp.Logger;
 
 /**
  * Implements jump search for searching through a log file.

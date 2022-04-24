@@ -1,5 +1,6 @@
 package com.edmazur.eqlp;
 
+import com.edmazur.eqlp.file.JumpSearchLogSeeker;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -10,8 +11,6 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import com.edmazur.eqlp.file.JumpSearchLogSeeker;
 
 /**
  * Entry point for EQ log processing library.

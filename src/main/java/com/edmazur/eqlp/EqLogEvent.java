@@ -9,7 +9,6 @@ import java.util.regex.Pattern;
 
 /**
  * Represents an individual EQ log event corresponding to a single log line.
- *
  * TODO: Decide whether to push timezone logic down into this class.
  */
 public class EqLogEvent {
@@ -63,23 +62,14 @@ public class EqLogEvent {
     return fullLine;
   }
 
-  /**
-   * @return The full line.
-   */
   public String getFullLine() {
     return fullLine;
   }
 
-  /**
-   * @return The timestamp.
-   */
   public LocalDateTime getTimestamp() {
     return timestamp;
   }
 
-  /**
-   * @return The payload.
-   */
   public String getPayload() {
     return payload;
   }
