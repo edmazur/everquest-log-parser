@@ -55,8 +55,7 @@ public class EqLog implements Runnable {
       String server,
       String character,
       Instant parseStart,
-      Instant parseEnd,
-      String foo) {
+      Instant parseEnd) {
     this.eqInstallDirectory = eqInstallDirectory;
     this.timezone = timezone;
     this.server = server;
